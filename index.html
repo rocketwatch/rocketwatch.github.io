@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rocket Watch — Get the App</title>
+<meta name="description" content="Live rocket launch countdowns, weather, and jellyfish-plume alerts. Get Rocket Watch for iPhone, iPad, Mac, and Android.">
+
+<!-- iOS Safari smart app banner: native "Open"/"View" banner on iOS, free of charge. -->
+<meta name="apple-itunes-app" content="app-id=6794750968">
+
+<!-- Open Graph / link-preview tags, since this page is the destination for social ads and shares. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rocket Watch">
+<meta property="og:description" content="Live rocket launch countdowns, weather, and jellyfish-plume alerts.">
+<meta property="og:image" content="https://rocketwatch.github.io/feature-graphic.png">
+<meta property="og:url" content="https://rocketwatch.github.io/">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+
+<style>
+  :root {
+    --bg: #070b12;
+    --panel: #0c131e;
+    --border: rgba(255,255,255,0.08);
+    --text-primary: #f4f7fb;
+    --text-secondary: #9fb0c3;
+    --phosphor: #5bff7b;
+    --jelly: #6fd8ff;
+    --orange: #ff9a4d;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* Sticky platform-aware install banner — hidden until JS detects a
+     platform worth showing a one-tap button for. Kept out of the flow
+     (position: sticky) so it doesn't shift layout on the initial paint. */
+  #smart-banner {
+    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background: rgba(7, 11, 18, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  #smart-banner.visible { display: flex; }
+  #smart-banner img { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; }
+  #smart-banner .info { flex: 1; min-width: 0; }
+  #smart-banner .info strong { display: block; font-size: 14px; }
+  #smart-banner .info span { display: block; font-size: 12px; color: var(--text-secondary); }
+  #smart-banner .cta {
+    flex-shrink: 0;
+    padding: 7px 16px;
+    border-radius: 999px;
+    background: var(--jelly);
+    color: #06121a;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  main {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+    text-align: center;
+  }
+  .icon {
+    width: 108px;
+    height: 108px;
+    border-radius: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 12px 40px rgba(111, 216, 255, 0.18);
+  }
+  h1 {
+    font-size: 30px;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .tagline {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin: 0 auto 36px;
+    max-width: 420px;
+    line-height: 1.5;
+  }
+
+  .stores {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .store-button {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .store-button:active { transform: scale(0.98); }
+  .store-button.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .store-button .glyph {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .store-button .label { text-align: left; flex: 1; }
+  .store-button .label strong { display: block; font-size: 15px; }
+  .store-button .label span { display: block; font-size: 12px; color: var(--text-secondary); }
+  .store-button .chev { color: var(--text-secondary); font-size: 18px; }
+
+  .features {
+    text-align: left;
+    display: grid;
+    gap: 14px;
+    padding: 20px 22px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .features .row { display: flex; gap: 10px; align-items: flex-start; }
+  .features .row .e { flex-shrink: 0; }
+
+  footer {
+    margin-top: 40px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+
+<div id="smart-banner">
+  <img src="icon.png" alt="">
+  <div class="info">
+    <strong>Rocket Watch</strong>
+    <span>Live launch countdowns &amp; jellyfish alerts</span>
+  </div>
+  <a class="cta" id="smart-banner-cta" href="#">Get</a>
+</div>
+
+<main>
+  <img class="icon" src="icon.png" alt="Rocket Watch app icon">
+  <h1>Rocket Watch</h1>
+  <p class="tagline">Live rocket launch countdowns, real weather, and the jellyfish‑plume alert you won't find anywhere else.</p>
+
+  <div class="stores">
+    <a class="store-button" href="https://apps.apple.com/app/id6794750968" id="btn-ios">
+      <span class="glyph">📱</span>
+      <span class="label"><strong>App Store</strong><span>iPhone &amp; iPad</span></span>
+      <span class="chev">›</span>
+    </a>
+    <a class="store-button" href="https://apps.apple.com/app/id6794750968" id="btn-mac">
+      <span class="glyph">💻</span>
+      <span class="label"><strong>App Store</strong><span>Mac</span></span>
+      <span class="chev">›</span>
+    </a>
+    <a class="store-button disabled" href="https://play.google.com/store/apps/details?id=com.joshuajustice.rocketwatch" id="btn-android">
+      <span class="glyph">🤖</span>
+      <span class="label"><strong>Google Play</strong><span>Coming soon on Android</span></span>
+      <span class="chev">›</span>
+    </a>
+  </div>
+
+  <div class="features">
+    <div class="row"><span class="e">🚀</span><span>Live T‑minus countdowns for Space Coast, Starbase, and Pacific Coast launches</span></div>
+    <div class="row"><span class="e">🪼</span><span>Jellyfish‑plume potential — know when a dawn or dusk launch will glow</span></div>
+    <div class="row"><span class="e">🔔</span><span>Alerts at 24 hours, 1 hour, 10 minutes, and liftoff</span></div>
+    <div class="row"><span class="e">🔒</span><span>No account, no ads, no data collection</span></div>
+  </div>
+
+  <footer>&copy; 2026 Joshua Justice · <a href="https://rocketwatch.github.io/legal/" style="text-decoration:underline">Privacy Policy</a></footer>
+</main>
+
+<script>
+(function () {
+  var ua = navigator.userAgent || navigator.vendor || "";
+  var isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+  // iPadOS 13+ identifies as "Macintosh" but exposes multi-touch — the one
+  // reliable way to tell a real Mac from an iPad requesting the desktop site.
+  var isIPadDesktopMode = /Macintosh/.test(ua) && navigator.maxTouchPoints > 1;
+  var isMac = /Macintosh|Mac OS X/.test(ua) && !isIPadDesktopMode;
+  var isAndroid = /Android/i.test(ua);
+
+  var banner = document.getElementById("smart-banner");
+  var cta = document.getElementById("smart-banner-cta");
+  var IOS_URL = "https://apps.apple.com/app/id6794750968";
+  var ANDROID_URL = "https://play.google.com/store/apps/details?id=com.joshuajustice.rocketwatch";
+  // Flip to true once the Android build clears Google Play review — the
+  // Play Store 404s for everyone but the developer until then, so the
+  // button stays visibly disabled rather than linking out to a dead page.
+  var PLAY_STORE_LIVE = false;
+
+  if (isIOS || isIPadDesktopMode) {
+    cta.href = IOS_URL;
+    banner.classList.add("visible");
+  } else if (isMac) {
+    cta.href = IOS_URL;
+    banner.classList.add("visible");
+  } else if (isAndroid && PLAY_STORE_LIVE) {
+    cta.href = ANDROID_URL;
+    banner.classList.add("visible");
+  }
+
+  if (PLAY_STORE_LIVE) {
+    var androidBtn = document.getElementById("btn-android");
+    androidBtn.classList.remove("disabled");
+    androidBtn.querySelector(".label span").textContent = "Android";
+  }
+})();
+</script>
+
+</body>
+</html>

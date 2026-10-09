@@ -184,9 +184,9 @@
       <span class="label"><strong>App Store</strong><span>Mac</span></span>
       <span class="chev">›</span>
     </a>
-    <a class="store-button disabled" href="https://play.google.com/store/apps/details?id=com.joshuajustice.rocketwatch" id="btn-android">
+    <a class="store-button" href="https://play.google.com/store/apps/details?id=com.joshuajustice.rocketwatch" id="btn-android">
       <span class="glyph">🤖</span>
-      <span class="label"><strong>Google Play</strong><span>Coming soon on Android</span></span>
+      <span class="label"><strong>Google Play</strong><span>Android</span></span>
       <span class="chev">›</span>
     </a>
   </div>
@@ -215,10 +215,10 @@
   var cta = document.getElementById("smart-banner-cta");
   var IOS_URL = "https://apps.apple.com/app/id6794750968";
   var ANDROID_URL = "https://play.google.com/store/apps/details?id=com.joshuajustice.rocketwatch";
-  // Flip to true once the Android build clears Google Play review — the
-  // Play Store 404s for everyone but the developer until then, so the
-  // button stays visibly disabled rather than linking out to a dead page.
-  var PLAY_STORE_LIVE = false;
+  // The Play Store listing went live in October 2026. Set this back to false
+  // if it is ever pulled, so the button reads "Coming soon" instead of
+  // linking out to a dead page.
+  var PLAY_STORE_LIVE = true;
 
   if (isIOS || isIPadDesktopMode) {
     cta.href = IOS_URL;

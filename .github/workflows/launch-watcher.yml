@@ -1,0 +1,36 @@
+# Reads the public launch feed from GitHub's address pool and hands it to the
+# Rocket Watch push service, which wakes the app when a launch moves or goes on hold.
+# (The push service's own reads are often throttled by Space Devs.)
+name: Launch watcher
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: launch-watcher
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Fetch launches and pass them on
+        env:
+          INGEST_TOKEN: ${{ secrets.INGEST_TOKEN }}
+        run: |
+          set +e
+          code=$(curl -sS -m 40 -o feed.json -w '%{http_code}' -H 'accept: application/json' \
+            'https://ll.thespacedevs.com/2.3.0/launches/upcoming/?location__ids=12,27,143,11&limit=40&mode=normal')
+          echo "Space Devs: HTTP $code"
+          if [ "$code" != "200" ]; then head -c 200 feed.json; echo; exit 0; fi
+          jq -c '{launches: [.results[] | {id, net, status: .status.abbrev, location: .pad.location.id}]}' feed.json > payload.json
+          code=$(curl -sS -m 40 -o resp.json -w '%{http_code}' -X POST \
+            -H "x-ingest-token: $INGEST_TOKEN" -H 'content-type: application/json' \
+            --data @payload.json https://push.rocketwatch.app/v1/ingest)
+          echo "Push service: HTTP $code $(head -c 100 resp.json)"
+          exit 0
